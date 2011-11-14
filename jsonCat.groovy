@@ -1,3 +1,5 @@
+#!/usr/bin/env groovy
+
 /**
     jsonCat merges JSON docs on command-line
     Copyright (C) 2011 Edward White
@@ -17,14 +19,12 @@
     51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
 **/
 
-#!/usr/bin/env groovy
-
 import groovy.json.*
 import java.util.HashSet
 
 /** closures **/
 def getCliAttr = {
-  roots = (String[]) ["/home/ejtrw1/"]
+  roots = (String[]) ["./"]
   def engine = new GroovyScriptEngine(roots)
 
   def binding = ['args':args] as Binding
