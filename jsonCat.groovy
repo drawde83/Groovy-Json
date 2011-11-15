@@ -33,24 +33,6 @@ def getCliAttr = {
   return binding.getVariable('res')
 }
 
-/**
-usage:
-
-program is designed to create a json document with data from Standard Input sent as either text or json
-
-flag: a argument of the form -flagname, allows the program to change into diff modes.
-long argument: argument of the form --name, followed by a value that the program can access.
-
-
-examples:
-
-adding key & val to doc
-cat example.json | groovy jsonCat.groovy --addVal "text,some_random_text"
-
-create json from text
-cat example.txt | groovy jsonCat.groovy --name blah -isText
-**/
-
 def main = {
     cli_attr = getCliAttr()
     flags = cli_attr["flags"]
