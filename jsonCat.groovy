@@ -36,21 +36,30 @@ def getCliAttr = {
 def main = {
     cli_attr = getCliAttr()
     flags = cli_attr["flags"]
-    hasFlag = {flags.contains(it)}
-
     res_map = [:]
     longArgs = cli_attr["longArgs"]
     name = longArgs["--name"]
     stdin = System.in.text
 
 
+    hasFlag = {flags.contains(it)}
+
+    jSlurp = {
+    	js = new JsonSlurper()
+        return js.parseText(stdin)
+    }
+
+    jBuild = {rm -> 
+        jb = new JsonBuilder(rm)
+        return jb.toString()
+    }
+
+
     if(hasFlag("-isText")){
 	res_map[name] = stdin
 
     }else{							//default mode accepting JSON over StdIn
-    	js = new JsonSlurper()
-        res_map = js.parseText(stdin)
-
+        res_map = jSlurp()
     }
 
 
@@ -60,10 +69,7 @@ def main = {
 
     }
 
-
-    def jb = new JsonBuilder(res_map)
-    println jb.toString()
+    return jBuild(res_map)
 }
 
-//main(args.collect{it})
-main()
+println main()
