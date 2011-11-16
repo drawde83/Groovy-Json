@@ -54,6 +54,7 @@ def main = {
         return jb.toString()
     }
 
+    
 
     if(hasFlag("-isText")){
 	res_map[name] = stdin
@@ -62,14 +63,19 @@ def main = {
         res_map = jSlurp()
     }
 
-
-    if(longArgs["--addVal"] != null){
-	it = longArgs["--addVal"].split(",")
+    addVal = longArgs["--addVal"]
+    if(addVal != null){
+	it = addVal.split(",")
 	res_map[it[0]] = it[1]
 
     }
 
+    if(hasFlag("-outputText")){
+	return res_map.collect{k,v -> "\"$k\" \"$v\""}.join("\n")
+    }
+
     return jBuild(res_map)
+
 }
 
 println main()
